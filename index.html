@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play classic Snake and Tetris games with sound effects">
+    <title>Classic Games: Snake & Tetris</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Game Selection Screen -->
+        <div class="game-selection">
+            <h1>Classic Games</h1>
+            <p class="subtitle">Choose your game</p>
+            <div class="game-buttons">
+                <button class="game-btn snake-btn" onclick="showGame('snake')" aria-label="Play Snake Game">
+                    <span class="game-icon">🐍</span>
+                    <span class="game-title">Snake</span>
+                </button>
+                <button class="game-btn tetris-btn" onclick="showGame('tetris')" aria-label="Play Tetris Game">
+                    <span class="game-icon">🧱</span>
+                    <span class="game-title">Tetris</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Snake Game Container -->
+        <div id="snake-game" class="game-container" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showGameSelection()" aria-label="Back to menu">← Back</button>
+                <h2>🐍 Snake Game</h2>
+                <div class="game-info">
+                    <div class="info-item">
+                        <span class="info-label">Score</span>
+                        <span id="snake-score" class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">High Score</span>
+                        <span id="snake-high-score" class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Speed</span>
+                        <span id="snake-speed" class="info-value">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board-wrapper">
+                <div class="game-board snake-board" id="snake-board" role="application" aria-label="Snake game board"></div>
+                <div id="snake-pause-indicator" class="pause-indicator" style="display: none;">
+                    <div class="pause-content">
+                        <p>⏸️ PAUSED</p>
+                        <p class="pause-hint">Press SPACE to resume</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Info -->
+            <div class="controls-info">
+                <p><strong>Controls:</strong> Arrow Keys or WASD to move | SPACE to pause | ESC for menu</p>
+            </div>
+
+            <!-- Sound Controls -->
+            <div class="sound-controls">
+                <button class="sound-btn" onclick="toggleSound()" aria-label="Toggle sound">
+                    <span id="sound-icon">🔊 Sound On</span>
+                </button>
+                <span id="sound-status" class="sound-status">Enabled</span>
+            </div>
+        </div>
+
+        <!-- Tetris Game Container -->
+        <div id="tetris-game" class="game-container" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showGameSelection()" aria-label="Back to menu">← Back</button>
+                <h2>🧱 Tetris Game</h2>
+                <div class="game-info">
+                    <div class="info-item">
+                        <span class="info-label">Score</span>
+                        <span id="tetris-score" class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">High Score</span>
+                        <span id="tetris-high-score" class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Level</span>
+                        <span id="tetris-level" class="info-value">1</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Lines</span>
+                        <span id="tetris-lines" class="info-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board-wrapper">
+                <div class="game-board tetris-board" id="tetris-board" role="application" aria-label="Tetris game board"></div>
+                <div id="tetris-pause-indicator" class="pause-indicator" style="display: none;">
+                    <div class="pause-content">
+                        <p>⏸️ PAUSED</p>
+                        <p class="pause-hint">Press SPACE to resume</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Info -->
+            <div class="controls-info">
+                <p><strong>Controls:</strong> Arrow Keys or WASD to move | UP/W to rotate | SPACE to pause | ESC for menu</p>
+            </div>
+
+            <!-- Sound Controls -->
+            <div class="sound-controls">
+                <button class="sound-btn" onclick="toggleSound()" aria-label="Toggle sound">
+                    <span id="sound-icon">🔊 Sound On</span>
+                </button>
+                <span id="sound-status" class="sound-status">Enabled</span>
+            </div>
+        </div>
+
+        <!-- Snake Game Over Screen -->
+        <div id="snake-game-over" class="game-over" style="display: none;" role="dialog" aria-labelledby="snake-game-over-title">
+            <div class="game-over-content">
+                <h2 id="snake-game-over-title">🎮 Game Over!</h2>
+                <p class="final-score">Final Score: <span id="snake-final-score">0</span></p>
+                <p id="snake-high-score-message" class="high-score-message" style="display: none;">
+                    🎉 New High Score! 🎉
+                </p>
+                <div class="game-over-buttons">
+                    <button class="btn-primary" onclick="restartSnake()" aria-label="Play Snake again">Play Again</button>
+                    <button class="btn-secondary" onclick="showGameSelection()" aria-label="Back to game selection">Choose Game</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tetris Game Over Screen -->
+        <div id="tetris-game-over" class="game-over" style="display: none;" role="dialog" aria-labelledby="tetris-game-over-title">
+            <div class="game-over-content">
+                <h2 id="tetris-game-over-title">🎮 Game Over!</h2>
+                <p class="final-score">Final Score: <span id="tetris-final-score">0</span></p>
+                <p id="tetris-high-score-message" class="high-score-message" style="display: none;">
+                    🎉 New High Score! 🎉
+                </p>
+                <div class="game-over-buttons">
+                    <button class="btn-primary" onclick="restartTetris()" aria-label="Play Tetris again">Play Again</button>
+                    <button class="btn-secondary" onclick="showGameSelection()" aria-label="Back to game selection">Choose Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="sound_manager.js"></script>
+    <script src="snake_game.js"></script>
+    <script src="tetris_game.js"></script>  
+    <script src="game_manager.js"></script>
+</body>
+</html>
