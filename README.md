@@ -215,9 +215,18 @@ Contributions are welcome! Here's how:
 
 - **GitHub:** [@andremugabo](https://github.com/andremugabo)
 - **Email:** andremugabo@yahoo.fr
-- **Website:** https://yourwebsite.com
+- **Website:** https://devops-portfolio-il9c.onrender.com/
 
 ## 🎮 Screenshots
+
+![Game Entry point](./screenshot/entrypoint.png)
+![Snake Game](./screenshot/snakegame.png)
+![Tetris Game](./screenshot/tetrisgame.png)
+![Screenshot](./screenshot/Screenshot%202025-10-16%20at%2016.49.06.png)
+![Screenshot](./screenshot/Screenshot%202025-10-16%20at%2016.49.13.png)
+![Screenshot](./screenshot/Screenshot%202025-10-16%20at%2016.49.15.png)
+![Screenshot](./screenshot/Screenshot%202025-10-16%20at%2016.49.57.png)
+![Screenshot](./screenshot/Screenshot%202025-10-16%20at%2016.50.33.png)
 
 ### Game Selection Menu
 Beautiful gradient background with game selection cards.
